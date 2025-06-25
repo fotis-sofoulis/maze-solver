@@ -57,12 +57,28 @@ def main():
     reset_button = Button(
         button_frame, text="Reset Maze", font=("Arial", 12, "bold"), command=maze.reset
     )
-    reset_button.pack(side="left", padx=(250, 10))
+    reset_button.pack(side="left", padx=(150, 10))
+
+    status_label = Label(
+        button_frame, text="Status", font=("Arial", 10, "italic"), width=20, anchor="center"
+    )
+    status_label.pack(side="left", expand=True)
+
+    def run_selected_algorithm():
+        status_label.config(text="Working...", fg="blue")
+        root.update_idletasks()
+
+        result = maze.solve(method=algorithm_var.get())
+
+        if result:
+            status_label.config(text="Solved! :)", fg="green")
+        else:
+            status_label.config(text="Can't be solved. :(", fg="red")
 
     go_button = Button(
-        button_frame, text="Go!", font=("Arial", 12, "bold"), command=maze.solve
+        button_frame, text="Go!", font=("Arial", 12, "bold"), command=run_selected_algorithm
     )
-    go_button.pack(side="right", padx=(10, 250))
+    go_button.pack(side="right", padx=(10, 150))
 
     root.update_idletasks()
 

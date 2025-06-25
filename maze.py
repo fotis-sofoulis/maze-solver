@@ -109,17 +109,16 @@ class Maze:
     def solve(self, method=None):
         print(f"--- Solving maze using {method} ---")
         self.__reset_cells_visited()
-        return self._solve_dfs(0, 0)
-        #
-        # if method == "DFS":
-        #     return self._solve_dfs(0, 0)
-        # if method == "BFS":
-        #     return self._solve_bfs(0, 0)
-        # if method == "A*":
-        #     return self._solve_astar(0, 0)
-        #
-        # print(f"Unknown solving method: {method}")
-        # return False
+
+        if method == "DFS":
+            return self._solve_dfs(0, 0)
+        if method == "BFS":
+            return self._solve_bfs(0, 0)
+        if method == "A*":
+            return self._solve_astar(0, 0)
+
+        print(f"Unknown solving method: {method}")
+        return False
 
     def _solve_dfs(self, i, j):
         self.__animate()
