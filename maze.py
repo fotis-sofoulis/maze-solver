@@ -106,38 +106,58 @@ class Maze:
         self.__create_maze()
         print("Maze has been reset!")
 
-    def solve(self, method):
-        """
-        Public-facing solve method. Acts as a dispatcher.
-        """
+    def solve(self, method=None):
         print(f"--- Solving maze using {method} ---")
-        # Reset cell visited state before starting a new solve
         self.__reset_cells_visited()
+        return self._solve_dfs(0, 0)
+        #
+        # if method == "DFS":
+        #     return self._solve_dfs(0, 0)
+        # if method == "BFS":
+        #     return self._solve_bfs(0, 0)
+        # if method == "A*":
+        #     return self._solve_astar(0, 0)
+        #
+        # print(f"Unknown solving method: {method}")
+        # return False
 
-        # Dispatch to the correct internal solver
-        if method == "DFS":
-            return self._solve_dfs()
-        if method == "BFS":
-            return self._solve_bfs()
-        if method == "A*":
-            return self._solve_astar()
+    def _solve_dfs(self, i, j):
+        self.__animate()
 
-        print(f"Unknown solving method: {method}")
+        self.__cells[i][j].visited = True
+
+        if i == self.__num_cols - 1 and j == self.__num_rows - 1:
+            return True
+
+        moves = [
+            (-1, 0, "has_left_wall"),
+            (1, 0, "has_right_wall"),
+            (0, -1, "has_top_wall"),
+            (0, 1, "has_bottom_wall"),
+        ]
+
+        for di, dj, wall in moves:
+            ni, nj = i + di, j + dj
+
+            if (
+                0 <= ni < self.__num_cols
+                and 0 <= nj < self.__num_rows
+                and not getattr(self.__cells[i][j], wall)
+                and not self.__cells[ni][nj].visited
+            ):
+                self.__cells[i][j].draw_move(self.__cells[ni][nj])
+
+                if self._solve_dfs(ni, nj):
+                    return True
+                else:
+                    self.__cells[i][j].draw_move(self.__cells[ni][nj], True)
+
         return False
 
-    def _solve_dfs(self):
-        """Placeholder for the Depth-First Search algorithm."""
-        print("DFS logic will go here.")
-        # When you implement this, it will likely call a recursive helper method.
-        # For now, we just return to show it was called.
-        return
-
-    def _solve_bfs(self):
-        """Placeholder for the Breadth-First Search algorithm."""
+    def _solve_bfs(self, i, j):
         print("BFS logic will go here.")
         return
 
-    def _solve_astar(self):
-        """Placeholder for the A* (A-star) algorithm."""
+    def _solve_astar(self, i, j):
         print("A* logic will go here.")
         return

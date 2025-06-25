@@ -1,5 +1,5 @@
 from tkinter import LEFT, Button, Frame, Label, Radiobutton, StringVar
-
+import sys
 from graphics import Window
 from maze import Maze
 
@@ -15,7 +15,9 @@ def main():
     win = Window(screen_x, screen_y)
     root = win._Window__root
 
-    maze = Maze(margin, margin, num_rows, num_cols, cell_size_x, cell_size_y, win, 10)
+    sys.setrecursionlimit(10000)
+
+    maze = Maze(margin, margin, num_rows, num_cols, cell_size_x, cell_size_y, win)
 
     controls_frame = Frame(root)
     controls_frame.pack(side="bottom", fill="x", pady=10)
