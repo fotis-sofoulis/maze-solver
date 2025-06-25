@@ -18,9 +18,15 @@ class Maze:
         self.__cells = []
         if seed:
             random.seed(seed)
+
+        self.__create_maze()
+
+    def __create_maze(self):
+        self.__cells = []
         self.__create_cells()
         self.__break_entrance_and_exit()
         self.__break_walls_r(0, 0)
+        self.__reset_cells_visited()
 
     def __create_cells(self):
         for col in range(self.__num_cols):
@@ -89,4 +95,49 @@ class Maze:
 
             self.__break_walls_r(next_idx[0], next_idx[1])
 
+    def __reset_cells_visited(self):
+        for row in self.__cells:
+            for cell in row:
+                cell.visited = False
 
+    def reset(self):
+        if self.__win:
+            self.__win.clear()
+        self.__create_maze()
+        print("Maze has been reset!")
+
+    def solve(self, method):
+        """
+        Public-facing solve method. Acts as a dispatcher.
+        """
+        print(f"--- Solving maze using {method} ---")
+        # Reset cell visited state before starting a new solve
+        self.__reset_cells_visited()
+
+        # Dispatch to the correct internal solver
+        if method == "DFS":
+            return self._solve_dfs()
+        if method == "BFS":
+            return self._solve_bfs()
+        if method == "A*":
+            return self._solve_astar()
+
+        print(f"Unknown solving method: {method}")
+        return False
+
+    def _solve_dfs(self):
+        """Placeholder for the Depth-First Search algorithm."""
+        print("DFS logic will go here.")
+        # When you implement this, it will likely call a recursive helper method.
+        # For now, we just return to show it was called.
+        return
+
+    def _solve_bfs(self):
+        """Placeholder for the Breadth-First Search algorithm."""
+        print("BFS logic will go here.")
+        return
+
+    def _solve_astar(self):
+        """Placeholder for the A* (A-star) algorithm."""
+        print("A* logic will go here.")
+        return

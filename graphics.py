@@ -17,6 +17,9 @@ class Window:
         self.__root.update_idletasks()
         self.__root.update()
 
+    def clear(self):
+        self.__canvas.delete("all")
+
     def wait_for_close(self):
         self.running = True
         while self.running:
@@ -47,4 +50,3 @@ class Line:
             fill=fill_collor,
             width=2,
         )
-
