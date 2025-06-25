@@ -12,6 +12,7 @@ class Cell:
         self.__y1 = -1
         self.__y2 = -1
         self.__win = window
+        self.visited = False
 
     def draw(self, x1, y1, x2, y2):
         self.__x1 = x1
@@ -21,18 +22,18 @@ class Cell:
 
         if self.__win is None:
             return
-        if self.has_left_wall:
-            line = Line(Point(x1, y1), Point(x1, y2))
-            self.__win.drawline(line)
-        if self.has_right_wall:
-            line = Line(Point(x2, y1), Point(x2, y2))
-            self.__win.drawline(line)
-        if self.has_top_wall:
-            line = Line(Point(x1, y1), Point(x2, y1))
-            self.__win.drawline(line)
-        if self.has_bottom_wall:
-            line = Line(Point(x1, y2), Point(x2, y2))
-            self.__win.drawline(line)
+
+        def draw_wall(condition, p1, p2):
+            line = Line(p1, p2)
+            if condition:
+                self.__win.drawline(line)
+            else:
+                self.__win.drawline(line, "black")
+
+        draw_wall(self.has_left_wall, Point(x1, y1), Point(x1, y2))
+        draw_wall(self.has_right_wall, Point(x2, y1), Point(x2, y2))
+        draw_wall(self.has_top_wall, Point(x1, y1), Point(x2, y1))
+        draw_wall(self.has_bottom_wall, Point(x1, y2), Point(x2, y2))
 
     def get_center(self):
         return ((self.__x1 + self.__x2) / 2, (self.__y1 + self.__y2) / 2)

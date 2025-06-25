@@ -30,6 +30,24 @@ class Tests(unittest.TestCase):
             num_rows,
         )
 
+    def test_entrance_top_wall_removed(self):
+        m1 = Maze(0, 0, 5, 5, 10, 10)
+        entrance_cell = m1._Maze__cells[0][0]
+        self.assertFalse(
+            entrance_cell.has_top_wall,
+            "Entrance cell should have top wall removed"
+        )
+
+    def test_exit_bottom_wall_removed(self):
+        num_cols = 5
+        num_rows = 5
+        m1 = Maze(0, 0, num_rows, num_cols, 10, 10)
+        exit_cell = m1._Maze__cells[num_cols - 1][num_rows - 1]
+        self.assertFalse(
+            exit_cell.has_bottom_wall,
+            "Exit cell should have bottom wall removed"
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
