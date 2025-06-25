@@ -1,5 +1,6 @@
 import random
 import time
+from collections import deque
 
 from cell import Cell
 
@@ -154,8 +155,45 @@ class Maze:
         return False
 
     def _solve_bfs(self, i, j):
-        print("BFS logic will go here.")
-        return
+        queue = deque()
+        queue.append((i, j))
+        self.__cells[i][j].visited = True
+        path = {}
+
+        while queue:
+            qi, qj = queue.popleft()
+            self.__animate()
+
+            if qi == self.__num_cols - 1 and qj == self.__num_rows - 1:
+                # goal found reconstruct path
+                while (qi, qj) in path:
+                    pi, pj = path[(qi, qj)]
+                    self.__cells[pi][pj].draw_move(self.__cells[qi][qj])
+                    qi, qj = pi, pj
+                return True
+
+            # neighbors
+            moves = [
+                (-1, 0, "has_left_wall"),
+                (1, 0, "has_right_wall"),
+                (0, -1, "has_top_wall"),
+                (0, 1, "has_bottom_wall")
+            ]
+
+            for di, dj, wall in moves:
+                ni, nj = qi + di, qj + dj
+                if (
+                    0 <= ni < self.__num_cols and
+                    0 <= nj < self.__num_rows and
+                    not getattr(self.__cells[qi][qj], wall) and
+                    not self.__cells[ni][nj].visited
+                ):
+                    self.__cells[ni][nj].visited = True
+                    path[(ni, nj)] = (qi, qj)
+                    queue.append((ni, nj))
+                    self.__cells[qi][qj].draw_move(self.__cells[ni][nj])
+
+        return False
 
     def _solve_astar(self, i, j):
         print("A* logic will go here.")
