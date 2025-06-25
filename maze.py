@@ -194,7 +194,3 @@ class Maze:
                     self.__cells[qi][qj].draw_move(self.__cells[ni][nj])
 
         return False
-
-    def _solve_astar(self, i, j):
-        print("A* logic will go here.")
-        return

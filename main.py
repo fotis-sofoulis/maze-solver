@@ -43,13 +43,6 @@ def main():
         value="BFS",
         font=("Arial", 10),
     ).pack(side=LEFT)
-    Radiobutton(
-        selection_frame,
-        text="A*",
-        variable=algorithm_var,
-        value="A*",
-        font=("Arial", 10),
-    ).pack(side=LEFT)
 
     button_frame = Frame(controls_frame)
     button_frame.pack(side="bottom", fill="x", pady=5)
@@ -60,7 +53,7 @@ def main():
     reset_button.pack(side="left", padx=(150, 10))
 
     status_label = Label(
-        button_frame, text="Status", font=("Arial", 10, "italic"), width=20, anchor="center"
+        button_frame, text="Status", font=("Arial", 12, "italic"), width=20, anchor="center"
     )
     status_label.pack(side="left", expand=True)
 
