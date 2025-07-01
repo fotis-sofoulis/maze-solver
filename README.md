@@ -1,7 +1,7 @@
 # maze-solver
 This is a guided project on building a maze solver with a visual interface using Python
 
-## Setup Instructions ⚙
+## ⚙ Setup Instructions
 
 1. Install Python and Git (also if you are on WSL ensure that you have tkinter installed and working):
 ```bash
@@ -21,7 +21,17 @@ git clone https://github.com/fotis-sofoulis/maze-solver.git
 python3 main.py
 ```
 
-## GUI Preview 🖼️
+## 🖼️ GUI Preview
 
+![Maze Solver Demo](dfs.gif)
 
+The GUI, as shown in the figure above consists of:
 
+* An algorithm selector
+* A reset button
+* An initiation button, and
+* A status message
+
+## 📋 ToDo
+
+1. Implement additional algorithms
