@@ -35,3 +35,4 @@ The GUI, as shown in the figure above consists of:
 ## 📋 ToDo
 
 1. Implement additional algorithms
+2. Add rows and cols setter fields 
